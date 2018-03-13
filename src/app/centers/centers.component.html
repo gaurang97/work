@@ -1,0 +1,406 @@
+<link href="assets/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="assets/Content/Site.css" rel="stylesheet" type="text/css" />
+<link href="assets/Content/main.css" rel="stylesheet" type="text/css" />
+<link href="assets/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="assets/Content/animate.min.css" rel="stylesheet" type="text/css" />
+<link href="assets/Content/responsive.css" rel="stylesheet" type="text/css" />
+<link href="assets/Content/animate.min.css" rel="stylesheet" type="text/css" />
+<link href="assets/Content/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+<link href="assets/Scripts/JQGridReq/ui.jqgrid.css" rel="stylesheet" />
+<link href="assets/Scripts/JQGridReq/styles/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+<!--Scripts-->
+<script src="assets/Scripts/jQuery-2.1.4.min.js" type="text/javascript"></script>
+<script src="assets/Scripts/jquery-1.8.3.min.js" type="text/javascript"></script>
+<script src="assets/Scripts/jquery.js" type="text/javascript"></script>
+<script src="assets/Scripts/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/Scripts/main.js" type="text/javascript"></script>
+<script src="assets/Scripts/wow.min.js" type="text/javascript"></script>
+<script src="assets/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script src="assets/Scripts/Highcharts-4.0.1/exporting.js" type="text/javascript"></script>
+<script src="assets/Scripts/Highcharts-4.0.1/highcharts.js" type="text/javascript"></script>
+<script src="assets/Scripts/JQGridReq/jquery.jqGrid.min.js"></script>
+<script src="assets/Scripts/JQGridReq/grid.locale-en.js"></script>
+
+
+
+ <script>
+     // Set data for Main Energy
+     function GetCentersGrid() {
+         var centerdata = [
+              { centername: "Center One", centerdesc: "one" },
+             { centername: "Center Two", centerdesc: "two" },
+             { centername: "Center Three", centerdesc: "three" }
+         ];
+
+         // Setup grid for Main Energy
+         $("#jqgrid_centers").jqGrid({
+             data: centerdata,
+             datatype: "local",
+             height: 222,
+             width: 1020,
+             rowNum: 10,
+             rowList: [10, 20, 30],
+             colNames: ['Center Name', 'Center Desscription'],
+             colModel: [
+                 { name: 'centername', index: 'centername', editable: true, search: true },
+                 { name: 'centerdesc', index: 'centerdesc', editable: true, search: true }
+             ],
+
+             loadonce: false,
+             viewrecords: true,
+             rowNum: 20,
+             rowList: [20, 30, 50],
+             singleSelectClickMode: ['toggle'],
+             rownumWidth: 25,
+             multiselect: true,
+             pager: "#jqGridPage_centers",
+
+             hidegrid: false,
+             jsonReader: {
+                 repeatitems: false,
+                 id: "complaintno",
+                 root: function (obj) { return obj; },
+                 page: function (obj) { return 1; },
+                 total: function (obj) { return 1; },
+                 records: function (obj) { return obj.length; }
+             },
+
+             //onSelectRow: function (ticketnumber) {
+             //    //alert(id);
+             //    openModal();
+             //},
+             beforeSelectRow: function (rowId, e) {
+                 $(this).jqGrid("resetSelection");
+                 return true;
+             },
+
+         });
+
+         // $("#grid_compln_history").hide();
+         $("#jqgrid_centers").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: "cn" });
+         $("#menu_toggle").click(function () {
+             //$("#jqGrid01").setGridParam({  datatype: "local", data: mydata }).trigger("reloadGrid");
+             //$("#jqGrid01").setGridWidth($("#content").width());
+         });
+         $('#menu_toggle').on('hidden.bs.collapse', function (e) {
+             alert('Event fired on #' + e.currentTarget.id);
+         });
+     }
+</script>
+
+<body>
+
+<form>
+    <header id="header" style="position: fixed; width: 100%; z-index: 999;">
+        <div class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle text-warning" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#" style="width: 30%;">
+                        <h1>
+                            <img class="wow CenterIn" src="assets/Images/TGTLG08.png" alt="logo" style="width: 20%;" /></h1>
+                    </a>
+
+                    <div class="collapse navbar-collapse navbar-right">
+
+
+                         <ul class="nav navbar-nav">
+                            <li class=""><a [routerLink]="['/dashboard']">Dashboard</a></li>
+                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Masters</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a [routerLink]="['/dashboard']">Roles</a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/dashboard']">Permissions</a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/courses']">Courses</a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/centers']">Centers</a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/skills']">Skills</a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/levels']">Levels</a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/objectives']">Objectives</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Students</a>
+                                 <ul class="dropdown-menu">
+                                    <li>
+                                        <a [routerLink]="['/students']">Students</a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/accounts']">Accounts</a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/assessments']">Assessments</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class=""><a href="#">Reports</a></li>
+                            <!--<li class="scroll"><a href="#meet-team">Team</a></li>-->
+                            <li class=""><a href="#">Profiles</a></li>
+                            <!--<li class="scroll"><a href="#">Get Involved</a></li>-->
+                            <!-- <li class="scroll"><a href="Account/Login.aspx" target="_blank">Login</a></li>-->
+                            <!--<li class="scroll"><a href="#blog">Social</a></li>-->
+                            <!-- <li class="scroll">
+                                <a href="#get-in-touch">Contact</a>
+                            </li>-->
+                        </ul>
+                        <!-- <asp:Menu ID="Menu1" runat="server" RenderingMode="List" DisappearAfter="20000" DynamicPopOutImageUrl="~/images/blue-arrow-1.png" StaticPopOutImageUrl="~/images/blue-arrow-1.png"
+                            IncludeStyleBlock="false" StaticMenuStyle-CssClass="nav navbar-nav" DynamicMenuStyle-CssClass="dropdown-menu wow fadeInDown">
+                        </asp:Menu>-->
+                    </div>
+                </div>
+
+                <div class="rightpanel pull-right wow slideInRight">
+                    <div class="btn_profileprompt btn btn-md" data-toggle="modal" data-target="#Accounts">
+                        <span class="fa fa-2x fa-cogs text-warning"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <!-- Content Header (Page header) -->
+        <section class="content-header wow fadeInDown" style="margin-top: 10%;">
+            <h1>Manage Centers
+    <small>View, Add, Edit Centers</small>
+            </h1>
+        </section>
+        <!-- Main content -->
+        <section class="content wow fadeInDown">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a data-toggle="tab" href="#vwcenters"><i class="fa fa-eye" style="margin-right: 2%;"></i>View Centers</a></li>
+                <li><a data-toggle="tab" href="#addcenters"><i class="fa fa-plus" style="margin-right: 2%;"></i>Add Centers</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="vwcenters" class="tab-pane fade in active">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="vw_viewCenters">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">View Centers</h3>
+                                <a id="lnkbtn_addprompt" class="btn btn-link pull-right" onclick=""><i class="fa fa-2x fa-plus"></i></a>
+                            </div>
+                            <!-- /.box-header -->
+
+                            <div class="box-body">
+                                  <table id="jqgrid_centers"></table>
+                                <div id="jqGridPage_centers"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="addcenters" class="tab-pane fade">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="vw_addCenters">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Add/Edit Centers</h3>
+                                <a id="lnkbtn_viewprompt" class="btn btn-link pull-right" onclick=""><i class="fa fa-2x fa-eye"></i></a>
+                            </div>
+                            <!-- /.box-header -->
+
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Center Name</label>
+                                            <input id="txt_Centername" placeholder="* Enter Center Name" class="form-control" type="text"/>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Center Email</label>
+                                            <textarea id="txt_Centerdescription" placeholder="Enter Center Email" class="form-control" rows="3"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Center Phone</label>
+                                            <input id="Text1" placeholder="* Enter Center Phone" class="form-control" type="text"/>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Center Address</label>
+                                            <textarea id="txt_Centeraddress" placeholder="* Enter Center Address" class="form-control" rows="7"></textarea>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-lg-5">
+                                            <label>Courses</label>
+                                        </div>
+
+                                        <div class="col-lg-5">
+                                            <input id="Checkbox1" class="" type="checkbox" />
+                                            
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-5"></div>
+                                            <div class="col-lg-5">
+                                                <a id="lnkbtn_TeachermodalPrompt" href="#" class="btn btn-info btn-lg pull-right" data-toggle="modal" data-target="#modal_addnewteacher"><i class="fa fa-plus"></i>ADD NEW TEACHER</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <label for="lbl_ACenterMessage"></label>
+                                <a id="lnkbtn_saveCenter" class="btn btn-warning  btn-app pull-right" onclick=""><i class="fa fa-2x fa-save"></i>SAVE</a>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Modal Teacher-->
+        <div id="modal_addnewteacher" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add New Teacher</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-5">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Teacher Name</label>
+                                            <input id="txt_TeacherName" placeholder="* Enter Teacher Name" class="form-control" type="text" />
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Select Gender</label>
+                                            <select id="ddl_TeacherGender" class="form-control">
+                                                <option value="M">Male</option>
+                                                <option value="F">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Teacher Email</label>
+                                            <input id="txt_TeacherEmail" placeholder="Enter Teacher Email" class="form-control" />
+
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Teacher Phone</label>
+                                            <input id="txt_TeacherPhone" placeholder="Enter Teacher Phone" class="form-control"/>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="form-group">
+                                            <label>DOB:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input id="txt_teacher_dob" placeholder="Enter Teacher DOB" class="form-control"/>
+
+
+                                            </div>
+                                            <!-- /.input group -->
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Address</label>
+                                            <textarea id="txt_TeacherAddress" placeholder="* Enter Teacher Address" class="form-control" rows="5"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Upload Resume</label>
+                                            <input id="flupld_TeacherCV" type="file" class="form-control"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-5">
+                                        <label>Document Submitted?</label>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <input id="rdlst_TeacherDocument" type="radio" value="1" />Yes
+                <input id="rdlst_TeacherDocument" type="radio" value="0" />No
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-5">
+                                        <label>Courses</label>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <input id="chkls_CenterCourses" class="" type="checkbox" />
+                                        
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-10">
+                                        <a id="lnkbtn_addteacher" class="btn btn-info btn-md pull-right" validationgroup="addteacher" onclick="lnkbtn_addteacher_Click"><i class="fa fa-plus"></i>ADD</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal MyAccounts-->
+         <div class="modal fade" id="Accounts" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">My Account</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <a id="btn_Profile" runat="server" class="btn btn-large">
+                                <span class="fa fa-user"></span>Profile</a>
+                        </div>
+                        <div class="form-group">
+                            <a id="btn_Settings" class="btn btn-large">
+                                <span class="fa fa-cog"></span>Settings</a>
+                        </div>
+                        <div class="form-group">
+                            <a id="btn_SignOut" class="btn btn-large">
+                                <span class="fa fa-sign-out"></span>Sign Out</a>
+                        </div>
+                        <div class="form-group">
+                            <a id="btn_Terms" class="btn btn-large">
+                                <span class="fa fa-list-alt"></span>Terms</a>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
