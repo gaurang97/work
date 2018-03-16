@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from "@angular/router";
 import { AppComponents, AppRoutes } from "./app.routing";
 
-
+import { ChartModule } from 'angular-highcharts';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -44,6 +44,7 @@ import { RolesComponent } from './roles/roles.component';
     FormsModule,
     HttpModule,
     RouterModule,
+    ChartModule,
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [],
